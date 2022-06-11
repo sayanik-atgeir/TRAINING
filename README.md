@@ -1,1 +1,1 @@
-# TRAINING
+README file explaining that the repository “training” is meant to contain all the code across different topics such as sql, shell, python etc and push the new changes to the repository
