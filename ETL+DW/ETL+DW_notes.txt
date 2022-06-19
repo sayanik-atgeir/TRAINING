@@ -1,0 +1,30 @@
+﻿ETL+DW notes:
+
+
+Data Warehouse:
+It is subject oriented,integrated,time variant,non volatile collection of data which helps in organization’s decision making process. 
+
+
+OLTP: it is online transaction processing.where DML part is faster.every day every moment there is billions of transactions through OLTP system
+OLAP: online analytical processing.it is multidimensional cubes where granular level of data for all the dimensions can be retrieved very fast through select query.
+SCD1:
+SCD2:
+SCD3:
+SCD4:
+SCD6:
+Dimension Table: Dimension are collections of reference information about the facts in a data warehouse
+Fact Table:Facts are the measurable events related to the functional area covered by a data warehouse.In fact table there are two types of attribute. One is qualitative and the other is quantitative.The primary key of the dimension tables are the qualitative and the measurable items(unit price,production cost,age etc) are quantitative.
+Star schema: it is denormalized schema.There is no hierarchy between dimension tables. 
+Snowflake schema: it is a normalized schema. There is a parent child relationship among dim tables and the granular level (last level) primary key will go to the fact table.
+Galaxy schema:
+Data marts: it is the subset of whole data ware house.data mart acts on a particular functional area of an organization.
+Metadata: it is data about data.
+There are 6 types of Slowly Changing Dimension that are commonly used, they are as follows:
+
+
+Type 0 – Fixed Dimension. No changes allowed, dimension never changes.
+* Type 1 – No History. ...
+* Type 2 – Row Versioning. History is allowed here.
+* Type 3 – Previous Value column. ...
+* Type 4 – History Table. ...
+* * Type 6 – Hybrid SCD.
