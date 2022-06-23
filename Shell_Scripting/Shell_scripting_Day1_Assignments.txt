@@ -1,0 +1,314 @@
+﻿Shell Scripting Day 1 Assignment
+
+
+1. Create a directory with your name.
+
+
+mkdir  sayanik1
+
+
+2. Create a read-only file in your home directory?
+
+
+sayanik@DESKTOP-E5659VU:~$ touch newfile.txt
+sayanik@DESKTOP-E5659VU:~$ ls -lt
+
+
+total 0
+-rw-r--r-- 1 sayanik sayanik    0 Jun 23 13:24 newfile.txt
+drwxr-xr-x 1 sayanik sayanik 4096 Jun 23 13:10 sayanik1
+
+
+sayanik@DESKTOP-E5659VU:~$ chmod 400 newfile.txt
+sayanik@DESKTOP-E5659VU:~$ ls -lt
+
+
+total 0
+-r-------- 1 sayanik sayanik    0 Jun 23 13:24 newfile.txt
+drwxr-xr-x 1 sayanik sayanik 4096 Jun 23 13:10 sayanik1
+
+
+
+
+3.  Add the text below in your file:
+
+
+           sayanik@DESKTOP-E5659VU:~$ vim file2.txt
+           sayanik@DESKTOP-E5659VU:~$ ls -lt
+           
+total 0
+-rw-r--r-- 1 sayanik sayanik   69 Jun 23 13:34 file2.txt
+-r-------- 1 sayanik sayanik    0 Jun 23 13:24 newfile.txt
+drwxr-xr-x 1 sayanik sayanik 4096 Jun 23 13:10 sayanik1
+
+
+sayanik@DESKTOP-E5659VU:~$ ls -l file2.txt
+
+
+-rw-r--r-- 1 sayanik sayanik 69 Jun 23 13:34 file2.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ cat file2.txt
+
+
+This is my First File.
+Line 1
+Line 2
+Line 3
+Line 4
+Line 5
+6
+7
+8
+9
+10
+
+
+
+
+
+
+4.Create a copy of file created in 2 and 3 above named “copy_of_file1.txt”.
+
+
+        sayanik@DESKTOP-E5659VU:~$ cp file2.txt copy_of_file1.txt
+sayanik@DESKTOP-E5659VU:~$ cat copy_of_file1.txt
+
+
+This is my First File.
+Line 1
+Line 2
+Line 3
+Line 4
+Line 5
+6
+7
+8
+9
+10
+
+
+5. Count the number of characters, words and lines in file.
+
+
+        sayanik@DESKTOP-E5659VU:~$ wc copy_of_file1.txt
+11 20 69 copy_of_file1.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ wc -l copy_of_file1.txt   (line)
+11 copy_of_file1.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ wc -w copy_of_file1.txt   (word)
+20 copy_of_file1.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ wc -c copy_of_file1.txt    (characters)
+69 copy_of_file1.txt
+
+
+6.To view a list of all the users who have currently logged in?
+
+
+sayanik@DESKTOP-E5659VU:~$ whoami
+sayanik
+
+
+7 .Create a new directory named “test” in your home directory.  Copy file you created in 2 and 3 above to test directory ?
+
+
+sayanik@DESKTOP-E5659VU:~$ pwd
+/home/sayanik
+
+
+sayanik@DESKTOP-E5659VU:~$ mkdir test
+
+
+sayanik@DESKTOP-E5659VU:~$ cp newfile.txt test
+
+
+sayanik@DESKTOP-E5659VU:~$ cp file2.txt test
+
+
+sayanik@DESKTOP-E5659VU:~$ ls
+copy_of_file1.txt  file2.txt  newfile.txt  sayanik1  test
+
+
+sayanik@DESKTOP-E5659VU:~$ cd test
+
+
+sayanik@DESKTOP-E5659VU:~/test$ ls
+file2.txt  newfile.txt
+
+
+8. Move the file “copy_of_file1.txt” to the test directory ?
+
+
+sayanik@DESKTOP-E5659VU:~/test$ cd ~
+
+
+sayanik@DESKTOP-E5659VU:~$ pwd
+/home/sayanik
+
+
+sayanik@DESKTOP-E5659VU:~$ ls
+copy_of_file1.txt  file2.txt  newfile.txt  sayanik1  test
+
+
+sayanik@DESKTOP-E5659VU:~$ mv copy_of_file1.txt test
+
+
+sayanik@DESKTOP-E5659VU:~$ ls
+file2.txt  newfile.txt  sayanik1  test
+
+
+sayanik@DESKTOP-E5659VU:~$ cd test
+
+
+sayanik@DESKTOP-E5659VU:~/test$ ls
+copy_of_file1.txt  file2.txt  newfile.txt
+
+
+9.Display content of the file on the screen copy_of_file1.txt ?
+
+
+sayanik@DESKTOP-E5659VU:~/test$ cat copy_of_file1.txt
+
+
+This is my First File.
+Line 1
+Line 2
+Line 3
+Line 4
+Line 5
+6
+7
+8
+9
+10
+
+
+10.List different ways you can copy the content of the file copy_of_file1.txt to the file copy_of_file2.txt
+
+
+1.cp [file_to_copy] [file_new_name]
+2.cp [source] [directory/]
+3.cp [file_to_copy_One] [file_to_copy_Two] [file_to_copy_Three] [destination_to_paste/]  (Multiple files to destination)
+4.cp [*] [destination directory] (ALL Files to destination)
+5.cp -i [files_to_copy] [destination_directory]  (Copy files interactively,,It will asks whether to copy file or not)
+6.cp -v [files_to_copy] [destination_folder]  (Gives an output the operation we performed)
+7.cp -u -v [source_directory] [destination_directory]  (Only the latest modified file will be copied to the destination)
+8.cp -nv [files_to_copy] [destination_directory]  (IfI don’t overwrite any file)
+9.cp [--attributes-only] [source_file] [destination_file] (It will copy the attributes of a file)
+11.To view the list of Commands executed?
+sayanik@DESKTOP-E5659VU:~$ history
+    1  pwd
+    2  cd~
+    3  cd ~
+    4  pwd
+    5  vi
+    6  pwd
+    7  mkdir sayanik1
+    8  pwd
+    9  ls
+   10  tree
+   11  pwd
+   12  tree
+   13  sudo apt install tree
+   14  tree
+   15  pwd
+   16  ls
+   17  cd sayanik1
+   18  ls
+   19  cd ~
+   20  pwd
+   21  ls
+   22  cd sayanik1
+   23  cd ~
+   24  touch newfile.txt
+   25  ls -lt
+   26  chmod 400 newfile.txt
+   27  ls -lt
+   28  pwd
+   29  vim file2.txt
+   30  ls -lt
+   31  ls -l file2.txt
+   32  cat file2.txt
+   33  ls -l
+   34  cp file2.txt copy_of_file1.txt
+   35  cp newfile.txt copy_of_file1.txt
+   36  ls
+   37  cat copy_of_file1.txt
+   38  ls -lt
+   39  cp file2.txt copy_of_file1.txt
+   40  cat copy_of_file1.txt
+   41  wc copy_of_file1.txt
+   42  wc -l copy_of_file1.txt
+   43  wc -w copy_of_file1.txt
+   44  wc -c copy_of_file1.txt
+   45  who
+   46  users
+   47  w
+   48  whoami
+   49  pwd
+   50  mkdir test
+   51  cp newfile.txt test
+   52  cp file2.txt test
+   53  ls
+   54  cat test
+   55  cd test
+   56  ls
+   57  cd ~
+   58  pwd
+   59  ls
+   60  mv copy_of_file1.txt test
+   61  ls
+   62  cd test
+   63  ls
+   64  cat copy_of_file1.txt
+   65  cd ~
+   66  ls -l
+   67  history
+
+
+12.Create directories in your home directories and files as shown below:
+<your home directory>/assignment/day1/one/two/three/four/five/
+In the directory one, create files one.txt one1.txt one11.txt
+        1.sayanik@DESKTOP-E5659VU:~$ mkdir -p assignment/day1/one
+        sayanik@DESKTOP-E5659VU:~/assignment/day1/one$ touch one.txt one1.txt one11.txt
+        2.sayanik@DESKTOP-E5659VU:~$ mkdir -p assignment/day1/two
+sayanik@DESKTOP-E5659VU:~/assignment/day1/two$ touch two.txt two2.txt two22.txt
+        3.sayanik@DESKTOP-E5659VU:~$ mkdir -p assignment/day1/three
+sayanik@DESKTOP-E5659VU:~/assignment/day1/three$ touch three.txt three3.txt three33.txt
+        4.sayanik@DESKTOP-E5659VU:~$ mkdir -p assignment/day1/four
+sayanik@DESKTOP-E5659VU:~/assignment/day1/four$ touch four.txt four4.txt four44.txt
+        5.sayanik@DESKTOP-E5659VU:~$ mkdir -p assignment/day1/five
+sayanik@DESKTOP-E5659VU:~/assignment/day1/five$ touch five.txt five5.txt five55.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ cat /home/sayanik/assignment/day1/one/one.txt /home/sayanik/assignment/day1/two/two.txt /home/sayanik/assignment/day1/three/three.txt /home/sayanik/assignment/day1/four/four.txt /home/sayanik/assignment/day1/five/five.txt
+This is file one.txt
+This is file two.txt
+This is file three.txt
+This is file four.txt
+This is file five.txt
+
+
+13.
+A.chmod 644  assignment/day1/one/one.txt   assignment/day1/two/two.txt assignment/day1/three/three.txt  assignment/day1/four/four.txt assignment/day1/five/five.txt
+B.  chmod 666  assignment/day1/one/one1.txt    assignment/day1/two/two2.txt assignment/day1/three/three3.txt     assignment/day1/four/four4.txt assignment/day1/five/five5.txt
+C.chmod 755 assignment/day1/one/one11.txt  assignment/day1/two/two22.txt assignment/day1/three/three33.txt  assignment/day1/four/four44.txt assignment/day1/five/five55.txt
+
+
+14.Write a shell script to get the current date, time, username and current working directory.
+sayanik@DESKTOP-E5659VU:~$ date
+Thu Jun 23 16:46:23 IST 2022
+sayanik@DESKTOP-E5659VU:~$ whoami
+sayanik
+sayanik@DESKTOP-E5659VU:~$ pwd
+/home/sayanik
+sayanik@DESKTOP-E5659VU:~$ vi first_script.sh
+sayanik@DESKTOP-E5659VU:~$ bash first_script.sh
+Thu Jun 23 16:49:39 IST 2022
+sayanik
+/home/sayanik
