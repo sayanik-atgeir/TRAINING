@@ -1,0 +1,183 @@
+﻿1. How to Execute a Shell Script?
+sayanik@DESKTOP-E5659VU:~$ vi shell_scrpt_2.sh
+sayanik@DESKTOP-E5659VU:~$ bash shell_scrpt_2.sh
+Fri Jun 24 12:16:46 IST 2022
+sayanik
+
+
+2.  ‘ERROR’ andDisplay a Line From a File Containing the Keyword Its Surrounding Lines?
+
+
+sayanik@DESKTOP-E5659VU:~$ vi file8_day2.txt
+sayanik@DESKTOP-E5659VU:~$ cat file8_day2.txt
+
+
+error is a key word
+donot do error
+it will cause problem
+i dont like error
+
+
+sayanik@DESKTOP-E5659VU:~$ grep -v error file8_day2.txt
+
+
+it will cause problem
+
+
+
+
+3.        Filter out repeated lines in a file.
+
+
+sayanik@DESKTOP-E5659VU:~$ touch file6_day2.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ vi file6_day2.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ sort -u file6_day2.txt
+
+
+im from kolkata
+im sayanik
+
+
+4.Given a file find the count of lines containing the word “ABC”.
+
+
+        sayanik@DESKTOP-E5659VU:~$ grep -c abc file3_day2.txt
+
+
+
+
+5.Create file.txt that consist of following
+sayanik@DESKTOP-E5659VU:~$ touch file.txt
+sayanik@DESKTOP-E5659VU:~$ vi file.txt
+sayanik@DESKTOP-E5659VU:~$ cat file.txt
+
+
+Unix is opensource
+Unix is powerful
+unix is secure
+unix is robust
+Unix commands are easy to learn
+abc wants to learn shell scripting
+abc is name of a person
+rank of abc is 7
+rank of raju is 9
+
+
+5.a  Find unix string in file.txt using grep
+
+
+        sayanik@DESKTOP-E5659VU:~$ grep -n unix file.txt
+
+
+3:unix is secure
+4:unix is robust
+
+
+5.b  Find unix string in all files from current directory using grep
+        
+sayanik@DESKTOP-E5659VU:~$ grep -r unix /home/sayanik
+/home/sayanik/file.txt:unix is secure
+/home/sayanik/file.txt:unix is robust
+
+
+5.c  Print all the file names where “Unix” or “unix” string is found using grep
+
+
+        sayanik@DESKTOP-E5659VU:~$ grep -ri unix /home/sayanik
+
+
+/home/sayanik/file.txt:Unix is opensource
+/home/sayanik/file.txt:Unix is powerful
+/home/sayanik/file.txt:unix is secure
+/home/sayanik/file.txt:unix is robust
+/home/sayanik/file.txt:Unix commands are easy to learn
+
+
+5.d  Print all the lines that has pen or per in file.txt using grep
+
+
+        sayanik@DESKTOP-E5659VU:~$ grep -n 'pen\|per' file.txt
+
+
+1:Unix is opensource
+7:abc is name of a person
+
+
+6.Create 4 files with different text in it and then create a zip file to archive all 4 files ? 
+
+
+sayanik@DESKTOP-E5659VU:~$ touch file1_day2.txt file4_day2.txt file4_day2.txt file4_day2.txt
+
+
+sayanik@DESKTOP-E5659VU:~$ cat file1_day2.txt file2_day2.txt file3_day2.txt file4_day2.txt
+
+
+this is my first shell scripting session
+I love to learn shell scripting
+It based on Linux operating system
+It can be done in cloudera as well as wsl
+
+
+sayanik@DESKTOP-E5659VU:~$ zip shell_file.zip file1_day2.txt file2_day2.txt file3_day2.txt file4_day2.txt
+  adding: file1_day2.txt (stored 0%)
+  adding: file2_day2.txt (stored 0%)
+  adding: file3_day2.txt (stored 0%)
+  adding: file4_day2.txt (deflated 5%)
+
+
+7.Create a separate directory and unzip the file created in the previous question ? 
+
+
+        sayanik@DESKTOP-E5659VU:~$ cp shell_file.zip dir1_zipped
+        
+sayanik@DESKTOP-E5659VU:~/dir1_zipped$ ls -l
+
+
+total 4
+-rw-r--r-- 1 sayanik sayanik 794 Jun 24 13:13 shell_file.zip
+
+
+sayanik@DESKTOP-E5659VU:~/dir1_zipped$ unzip shell_file.zip
+
+
+Archive:  shell_file.zip
+ extracting: file1_day2.txt
+ extracting: file2_day2.txt
+ extracting: file3_day2.txt
+  inflating: file4_day2.txt
+
+
+
+
+8. Create a file1.txt and file2.txt with text as below:
+
+
+sayanik@DESKTOP-E5659VU:~/dir1_zipped$  sort -nu file1.txt  file2.txt  -o file3.txt
+
+
+sayanik@DESKTOP-E5659VU:~/dir1_zipped$  cat file3.txt
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+19
+20
