@@ -1,0 +1,63 @@
+﻿Day@1 Notes:
+
+
+Shell: It is an environment where we can run our command,programs and scripts.It gathers input from users and executes programs based on that i/p.When a program finishes executing it displays the programs o/p.
+
+
+VIM editor is used along with the bash shell to execute a command.
+
+
+Terminal commands:
+1. ls (to check file in current directory)
+2. ls -l (long listing,,you can check the file permission,memory block,bytes,date etc)
+3. ls -lt (sorting in time order)
+4. ls -ltr (sorting in reverse time order)
+5. man <command> (to check a command manually)
+6. ls -l <file name> (Details of a particular file)
+7. ls -a (Display all along with hidden items of a particular directory)
+ Metacharacters:
+8. Ls -l int?.txt  (return all files where there is one character after int)
+9. Ls -l int*.txt   (return all files where file name starts with int)
+10. Ls -l int*.*      (return all files where file name starts with int and for all extensions)
+Creating a File in Terminal:
+11.  touch <file name>   (Create an empty file using terminal)
+12. vi <filename>   (create a file and go to vim editor for inserting data)
+13. Cat >  <filename> (create a file and insert data into it in terminal only)
+Range:
+14. ls -l int[0-9]*  (it will return details of file where int contains 0 to 9 after ‘int’ and with any extension)
+15. ls -l *[p,t]*[1-9]*  (return as per pattern and range)
+Check content of a file:
+16. cat <filename>  (checking content of a file)
+      17. cat file1 file2 > file3  (Merging content of file 1 and 2 to file 3)
+      18. Esc:e <filename> (remain in vim editor and check content of another file)
+Count in a file:
+      20. wc <filename> (total no of line,words,bytes in a file)
+      21.wc -l <filename> (total no of line in a file)
+      22.wc -w <filename> (total no of word in a file)
+      24.wc -c <filename> (total no of characters in a file)
+Copy a file and a directory:
+      25.cp <existing filename> <new file name/new directory name>
+Renaming a file or directory:
+      26.mv <existing filename> <new filename>
+Removing/deleting file/directory:
+      27. rm <existing filename>  (it will delete the file without any interaction)
+      28. rm -i <filename>  (it will first ask and then if ‘y’, it will delete,if ‘n’ it will not deleted)
+      29. rmdir <dirname>
+      30. rm -r <dirname>
+     31. rm -rf <dirname>  (to delete directory along with subdirectory)
+Create Directory:
+     32. mkdir -p directory/subdir/file  (create directory with branches)
+     33. mkdir <dirname>  (to create a directory)
+Initial command:
+     34. pwd     (check present working directory)
+     35. Cd ~     (back to the home dir)
+     36. cd <dirname>   (move to that particular directory)
+37. tree  (is used to see all file,directory,subdirectory)
+
+
+Filename can also be used using Metacharacter
+In linux everything is treated as file
+VIM editor commands is in useful links to check
+
+
+Saving a file in vim editor : ESC:wq <enter>
