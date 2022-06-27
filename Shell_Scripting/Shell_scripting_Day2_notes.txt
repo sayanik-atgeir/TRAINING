@@ -1,0 +1,67 @@
+﻿Shell_scripting day 2 Notes
+
+
+File Permission:
+Three type of user in linux 
+1. User/Owner
+2. Group
+3. Others
+Permission Type: 
+1. Read → 4
+2. Write —> 2
+3. Execute —>1
+Syntax: chmod (numeric value) <Filename>  //// chmod 777 file1.txt (giving all three users all type of permission)
+// chmod o+wx <filename>  (giving others write and execute permission)
+
+
+Forcefully override a reading file in vim :  :wq!
+Grep commands:
+1.  ls -l | more (to see a no of files)
+2.  ls -l | grep ‘jun’  (only display the june month files)
+3.  grep abcd xyz*.csv  (it will search abcd in file xyz*.csv)
+4.  grep  -n abcd xyz*.csv (will show content with line number)
+5.  grep  -v abcd xyz*.csv (the lines where abcd is not there)
+6.  grep  -l abcd xyz*.csv  (list the files where abcd is there)
+7.  grep  -n ‘string1/|string2’ <filename> (search for two strings simultaneously)
+8.  grep -c  abcd <filename>  (will show the count of abcd in a particular file)
+9.  grep  -r string <directoryname>  (search inside a directory)
+10.grep  -i abcd <filename>  (show the string irrespective of case)
+
+
+Sort Commands:
+1. sort <filename>  (sorting based on alphabetically)
+2. sort -n <filename> (sorted numerically)
+3. Sort -nr <filename> (reverse numerical order)
+4. sort +1 <filename> (ignore first column and sort the value)
+5. sort -c <filename> (is the file sorted or not)
+6. sort -u <filename> (sort the value and remove duplicates)
+7. sort -m <filename> (tp sort the data month wise)
+8. sort -nu <existing filename> -o <output filename>  (sort the data as per requirements and store it in a outputfile )
+Process management:
+    
+1. An instance of a program is called a process.
+2. Two types of process . (foreground and background process)
+3. When the foreground process starts you have to wait till the process ends to start any other process.
+4. Type the command in terminal —-> start the command —> press ctrl+Z to stop —-->press <bg> to send it to background.
+5. Press <fg> to call the process in foreground
+6. To check status of a process  (ps -af)
+7. To terminate a process (kill -9 <processid>)
+8. <top>  details of all active process
+9. Nice is the priority parameter in linux ranges from 20 to -19.
+
+
+
+
+Zip a file:
+        zip <zip file> <the files to be zipped>
+                  (file.zip)    (.txt,.csv,.sh)
+To unzip a file:
+            unzip <zipped file name> 
+
+
+banner “text”: to create fancy text
+Unmask
+uname -a  : used to know all about the system configuration.
+cut:
+It is used to filter out any column from the data table
+cut -d”-” -f 1,2 <filename>   (here delimiter ios “-” and 1st and 2nd row will be there in data)
