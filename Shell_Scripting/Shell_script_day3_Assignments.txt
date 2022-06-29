@@ -1,0 +1,409 @@
+﻿1. How to Check the List of Running Processes?
+
+
+ sayanik@DESKTOP-E5659VU:~$ ps -e
+  PID TTY          TIME CMD
+    1 ?        00:00:00 init
+    9 tty1     00:00:00 init
+   10 tty1     00:00:00 bash
+   83 tty1     00:00:00 ps
+
+
+2.How to print PID of the current shell?
+sayanik@DESKTOP-E5659VU:~/day3$ vim pid_of.sh
+echo "PID of current shell: $$"
+sayanik@DESKTOP-E5659VU:~/day3$ sh pid_of.sh
+PID of current shell: 89
+
+
+3.Write a Shell Script that adds two numbers if provided as the command Line Argument and if the two numbers are not entered it outputs an Error Message.
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vim sum.sh
+sum=$(($1+$2))
+echo "Sum = $sum"
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh sum.sh 120 20
+Sum = 140
+
+
+
+
+ 4.Create a Script test1.sh which will be executed with arguments: 10 20 Virat Kohli "Rohit Sharma"
+e.g. sh test1.sh 10 20 Kamini Patil "Kamini Patil"
+Use $* and $@ to print the command line arguments in the format below:
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vim format.sh
+
+
+for i in $*; 
+do
+        echo $i
+   done
+sayanik@DESKTOP-E5659VU:~/day3$ sh format.sh 10 20 Virat Kohli "Rohit Sharma"
+10
+20
+Virat
+Kohli
+Rohit
+Sharma
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vim format.sh
+
+
+for i ; 
+do
+        echo $i
+   done
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh format.sh 10 20 Virat Kohli "Rohit Sharma"
+10
+20
+Virat
+Kohli
+Rohit Sharma
+
+
+
+
+5.Write a script to check if the commands below are successful or not in Unix?
+1. ls -l <filename that does not exist in the current directory>
+2. ls -l <filename that exist in the current directory>
+
+
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ ls -l format.sh
+-rw-r--r-- 1 sayanik sayanik 35 Jun 29 12:35 format.sh
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ ls -l sayanik.txt
+ls: cannot access 'sayanik.txt': No such file or directory
+
+
+6.Write a script to create an array of 10 for storing Employee names and print all array elements and their respective indexes?
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi employee.sh
+array=( sayanik soham avik anik bikram minu sourav anurag suresh kishore );
+for i in ${array[*]}
+do
+echo "$i"
+done
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh employee.sh
+
+
+sayanik
+soham
+avik
+anik
+bikram
+minu
+sourav
+anurag
+suresh
+kishore
+
+
+
+
+
+
+
+
+8.Write 5 functions below:
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi cal.sh
+
+
+#!/bin/sh
+clear
+sum=0
+i="y"
+echo " Enter first  no."
+read n1
+echo "Enter second no."
+read n2
+while [ $i = "y" ]
+do
+        echo "1.Addition"
+        echo "2.Subtraction"
+        echo "3.Multiplication"
+        echo "4.Division"
+        echo "Enter your choice"
+        read ch
+        case $ch in
+                    1)sum=`expr $n1 + $n2`
+                                 echo "Sum ="$sum;;
+                                     2)sum=`expr $n1 - $n2`
+                                                  echo "Sub = "$sum;;
+                                                      3)sum=`expr $n1 \* $n2`
+                                                                   echo "Mul = "$sum;;
+                                                                       4)sum=`echo "scale=2;$n1/$n2"|bc`
+                                                                                       echo "div=" $sum;;
+                                                                                           0)echo "closing the calculator";;
+                                                                                   esac
+                                                                                   echo "Do u want to continue ?[y/n]"
+                                                                                   read i
+                                                                                   if [ $i != "y" ]
+                                                                                   then
+                                                                                               exit
+                                                                                   fi
+
+
+
+
+9. Create a text file employee.txt as shown in the presentation today.
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi emp1.txt
+ajay manager account 45000
+sunil clerk account 25000
+varun manager sales 50000
+amit manager account 47000
+tarun peon sales 15000
+
+
+a.  sayanik@DESKTOP-E5659VU:~/day3$ cat emp1.txt | awk 'END{print}'
+tarun peon sales 15000
+b. 
+ sayanik@DESKTOP-E5659VU:~/day3$ awk '/account/ {print}' emp1.txt
+ajay manager account 45000
+sunil clerk account 25000
+amit manager account 47000
+
+
+c. 
+sayanik@DESKTOP-E5659VU:~/day3$ awk '{print $1,$4}' emp1.txt
+ajay 45000
+sunil 25000
+varun 50000
+amit 47000
+tarun 15000
+
+
+d.
+For c    sort +x <file_name>
+
+
+
+
+10. Write a script to accept the year from the user and check whether the leap year or not.
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi leap.sh
+echo "Enter a year"
+read year
+if [ `expr $year % 400` -eq 0 ]
+then
+        echo leap year
+elif [ `expr $year % 100` -eq 0 ]
+then
+        echo not a leap year
+elif [ `expr $year % 4` -eq 0 ]
+then
+        echo leap year
+else
+        echo not a leap year
+fi
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh leap.sh
+
+
+Enter a year
+2000
+leap year
+
+
+11.Write a shell script to accept the name from the user and check whether user entered name is file or directory. If name is file display its size and if it is directory display its contents
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi check.sh
+echo "enter the name"
+read name
+if [ -d $name ]
+then
+        echo "list of files in the directory"
+
+
+        ls –l $name|egrep ‘^d’
+
+
+elif [ -f $name ]
+then
+        filepath="/home/sayanik/day3/$name"
+
+
+        name1="${filepath##*/}"
+
+
+        size=$(ls -lah $filepath |cut -d ' ' -f 5 )
+
+
+        echo "FILE SIZE OF $name1 IS $size"
+
+
+else
+        echo "The input does not exist"
+fi
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh check.sh
+enter the name
+
+
+cal.sh
+FILE SIZE OF cal.sh IS 799
+
+
+12.Write a Program to find the greatest of three numbers
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi greatest.sh
+
+
+echo "Enter Num1"
+read num1
+echo "Enter Num2"
+read num2
+echo "Enter Num3"
+read num3
+
+
+if [ $num1 -gt $num2 ] && [ $num1 -gt $num3 ]
+then
+            echo $num1
+    elif [ $num2 -gt $num1 ] && [ $num2 -gt $num3 ]
+    then
+                echo $num2
+        else
+                    echo $num3
+fi
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh greatest.sh
+
+
+Enter Num1
+25
+Enter Num2
+36
+Enter Num3
+79
+79
+
+
+
+
+13. Write a Program to find whether a given number is positive or negative
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi posneg.sh
+echo "Enter a Number"
+read num
+
+
+if [ $num -lt 0 ]
+then
+            echo "Negative"
+    elif [ $num -gt 0 ]
+    then
+                echo "Positive"
+        else
+                    echo "Neither Positive Nor Negative"
+fi
+
+
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh posneg.sh
+
+
+Enter a Number
+25
+Positive
+
+
+
+
+14. Commands for below:
+1. List the directory contents date wise sorted.
+2. List the directory contents size wise sorted.
+3. List the contents of the sub directory.
+
+
+         sayanik@DESKTOP-E5659VU:~/day3$ ls -lt
+        sayanik@DESKTOP-E5659VU:~/day3$ ls -lS
+        sayanik@DESKTOP-E5659VU:~/day3$ ls -R
+
+
+
+
+15.For the given file contents write a shell script that prints Number of field delimiters:Line Number
+Note: in this file the field delimiter is comma(,)
+
+
+sayanik@DESKTOP-E5659VU:~$ cat text3.txt
+
+
+abc,def,ghi
+123,456,789
+aaa,bbb,ccc
+12,34
+1,1,3
+2
+4,5,6,7
+
+
+sayanik@DESKTOP-E5659VU:~$ awk 'BEGIN{FS="," ; OFS=":"} {print NF-1,NR}' text3.txt
+2:1
+2:2
+2:3
+1:4
+2:5
+0:6
+3:7
+
+
+16.write a shell script to count total no of arguments. If total arguments are 2 then come out of the script else print the arguments.
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ vi count.sh
+
+
+for i in $*
+           do
+                         if [ $# -eq 2 ]
+                                       then
+                                                        break 2
+                                                              else
+                                                                               echo "$i"
+                                                                                     fi
+                                                                                        done
+
+
+
+
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh count.sh 1 2 8 sayanik sd we
+
+
+1
+2
+8
+sayanik
+sd
+we
+
+
+sayanik@DESKTOP-E5659VU:~/day3$ sh count.sh 1 2
+sayanik@DESKTOP-E5659VU:~/day3$
