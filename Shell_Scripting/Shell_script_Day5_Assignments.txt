@@ -1,0 +1,196 @@
+﻿1.How Can We Find a Pattern in a File Without Using the grep Command?
+
+
+awk ‘/ pattern / {print}’ <filename>
+sed -n -e ‘/ pattern /p’
+
+
+3.How do we delete all blank lines in a file?
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ cat text.txt
+
+
+Text (literary theory), any object that
+
+
+can be read, including:
+
+
+Religious text, a writing that a religious tradition considers to be sacred
+Text, a verse or passage
+
+
+from scripture used in expository preaching
+Textbook, a book of instruction in any branch of study
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ sed  '/^$/d' text.txt
+
+
+Text (literary theory), any object that
+can be read, including:
+Religious text, a writing that a religious tradition considers to be sacred
+Text, a verse or passage
+from scripture used in expository preaching
+Textbook, a book of instruction in any branch of study
+
+
+4.Create a file1.txt that consists of following
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ cat file1.txt
+
+
+1. hello good morning.
+2. how are you today.
+3. its a bright sunny day.
+4. what have you planned for the day.
+5. did you complete the tasks.
+6. which book are you gonna read.
+7. you are so talented.
+
+
+5.a) 
+sayanik@DESKTOP-E5659VU:~/day5$ cat file1.txt | sed -n '1,5p' | more
+
+
+1. hello good morning.
+2. how are you today.
+3. its a bright sunny day.
+4. what have you planned for the day.
+5. did you complete the tasks.
+
+
+5.b)
+sayanik@DESKTOP-E5659VU:~/day5$ cat file1.txt | sed -n '2p' | more
+
+
+2. how are you today.
+
+
+5.c)
+sayanik@DESKTOP-E5659VU:~/day5$ cat file1.txt | sed -n -e '/ you /p' | more
+
+
+2. how are you today.
+4. what have you planned for the day.
+5. did you complete the tasks.
+6. which book are you gonna read.
+7. you are so talented.
+
+
+5.d)
+sayanik@DESKTOP-E5659VU:~/day5$ cat file1.txt | sed -n -e '/^you/p' | more
+
+
+you are so talented.
+
+
+5.Print the decimal and octal value of 20 using printf.
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ printf "Decimal: %d\nOctal: %o" 20 20
+
+
+Decimal: 20
+Octal: 24
+
+
+6.Write a shell script for reading the password from user but display is disabled
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ vi pw.sh
+echo "enter a password"
+read password
+echo
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ sh pw.sh
+
+
+enter a password
+cloudera
+
+
+7.write a shell script using who command and grep that asks the user to enter username and displays the output as User Logged In or NOT respectively.
+
+
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ vi user.sh
+
+
+read -p 'Enter username ' user
+if [ "$user" = "$(whoami)" ]; 
+then
+                    echo "user logged in"
+                        else
+                                                echo "User not logged in"
+fi
+
+
+
+
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ sh user.sh
+
+
+Enter username  sayanik
+user logged in
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ sh user.sh
+
+
+Enter username wsl
+User not logged in
+
+
+8.A file consists of 50 lines. Write a shell script to split into two files having 25 lines each.
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ wc -l split.sh
+50 split.sh
+sayanik@DESKTOP-E5659VU:~/day5$ head -n 25 split.sh > split_1st.sh
+sayanik@DESKTOP-E5659VU:~/day5$ head -n +26 split.sh > split_2nd.sh
+
+
+10. A file has 10 lines. Print 5th to 7th line.
+
+
+sayanik@DESKTOP-E5659VU:~/day5$ cat file1.txt | sed -n '5,7p' | more
+
+
+11.Calling one shell script from another shell script. Also capture the output
+
+
+$ cat master.sh 
+#!/bin/bash 
+echo "Please Enter your name" 
+ read THE_NAME 
+./slave.sh "$THE_NAME"
+
+
+$ cat slave.sh #!/bin/bash
+ if [[ -z $THE_NAME || $THE_NAME = '' ]]; then THE_NAME="$1"; fi 
+if [[ -z $THE_NAME || $THE_NAME = '' ]]; then echo "Please provide your name"; read THE_NAME; fi echo "Your name is: ${THE_NAME}"
+
+
+$ ./slave.sh 
+Please provide your name 
+sayanik 
+Your name is: sayanik
+
+
+$ THE_NAME=Mukherjee
+ $ export THE_NAME 
+$ ./slave.sh 
+Your name is: Mukherjee
+
+
+12.Splitting a file into multiple files using for loop
+
+
+split -n 5 file1.txt   (splitting into 5 files)
