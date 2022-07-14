@@ -1,0 +1,38 @@
+﻿AWS Notes_1
+
+
+Cloud computing is the delivery of computing services(server,storage,networking,database,analytics,intelligence etc) over the internet
+
+
+Advantages of cloud computing:
+
+
+1.Cost effectiveness which eliminates the cost of buying hardware and software and running onsite data centers.
+2.Speed (it is much faster because because most of the cloud computing provides self service and on demand services,so vast no of computing resources can be done in minutes)
+3.Global Scale(delivers right amount of IT resources when it is needed from right Geographical location)
+4.Productivity( cloud computing increases productivity of the organization as there is no hardware maintenance type of work)
+5. Performance is of very high scale because of low latency (because there is worldwide network of secured data centers which is upgraded at latest technology )
+6.Reliability (cloud computing make data backup (mirroring data) in multiple redundant sites,disaster recovery,make the business continuity easier and less expensive)
+7.Security is very high to protect data,apps and infrastructure.
+
+
+
+
+Type of cloud computing:
+
+
+1.Public cloud – all hardware,software,and other supporting infrastructure are owned by service providers,,and it provides the computing resources(server,storage) over the internet.
+
+
+2.private cloud – The private cloud is defined as computing services offered either over the Internet or a private internal network and only to select users instead of the general public.
+
+
+3.hybrid cloud – It is a computing environment that combines the on premises data centers(private cloud) with the private cloud.Through hybrid cloud system some organization uses multiple public cloud along with their own on premises data center(private cloud)
+
+
+Types of cloud services:
+
+
+IaaS (infrastructure as a service)
+PaaS (Platform as a service)
+Saas (Software as  a service)
