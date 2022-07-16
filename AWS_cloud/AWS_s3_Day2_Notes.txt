@@ -1,0 +1,174 @@
+﻿AWS Storage:
+1.S3 
+2.elastic file system(EFS)
+3.elastic block storage(EBS)
+4.Glacier
+5.Snowball
+
+
+AWS offers a complete range of cloud storage services to support both application and archival compliance requirements.select from objects,file and block storage services as well as cloud data migration options to start designing the foundation of cloud IT environment.
+
+
+AWS S3:
+
+
+1.s3 is a storage for the internet.It has a simple web services interface to strre and retrieve any amount of data anytime from anywhere from the internet.
+2.s3 is object based storage.
+3.operating system can not be installed on s3
+4.s3 is a distributed data storage where objects are redundantly stored in multiple storage.
+5.data is stored in buckets.
+6.a bucket is flat container.(there is no nested bucket inside a bucket)
+7.Max capacity of a single bucket is 5TB
+8.Folders can be created in a bucket(Through console)
+9.Bucket ownership is not transferable
+10.s3 bucket is region specific.
+11.There can be upto 100 buckets in a account(may expand on request)
+
+
+S3 Object:
+1.An object can be stored in s3 from 0 byte to 5 TB
+2.each object is stored and retrieved by a unique key(access and secret key)
+3.an object in s3 is uniquely identified by
+     Service endpoint
+      Bucket name
+       Object key
+4.object stored in a s3 bucket in a region will never leave the region until one specifically move it to another region or CRR
+5.A bucket owner can grant cross account permission to another account to upload objects.
+6.s3 bucket permission can be granted to \
+    Individual users
+     AWS account
+     Make the resource public
+     To all authentic user
+
+
+
+
+Copy in S3:
+1. Copy operation creates a copy of an object that is already stored in aws S3
+2. You can create a copy of your object upto 5 GB size in a single atomic operation(MEans in a single step)
+3. If the size is greater than 5GB then it will be multipart upload
+4. If copy to another region it incur changes
+
+
+
+
+Naming convention in s3:
+
+
+1. S3 bucket names  are globally unique.
+2.bucket name can not be changed after creation.
+3.if a bucket is deleted its name is again available to use .
+4.bucket name must be at least 3 characters and not more than 63 characters
+5.bucket names are part of the URL used to access the data.
+6.bucket name must be a series of one or more labels.
+7.bucket name contains lowercase,numbers,”-”,”.”,,not uppercase letter
+8.bucket name should not be an ip address.
+9. Each label must start and end with a lowercase letter or a number.
+10.by default buckets and its objects are private in default.only owner can access it
+
+
+Block Storage and Object Storage:
+
+
+1.Block storage is suitable for transactional database,random read/write and structured database storage.
+2.block storage divides the data to be stored in evenly sized blocks(data chunks) for instance,files can be split into evenly sized blocks before it is stored.
+3.databloks stored in block storage would not contain metadata.
+4.block storage only keeps the address(index) where the data blocks stored ,it does not care what is in the block,, index is used to retrieve the data from the specific block.
+ 
+1.Objet storage stores the data as a whole and does not divide them.
+2.in object storage an object is 
+     A.the file/data itself
+     B.its metadata
+     C. Object global unique id.
+3.The object global unique id is a unique identifier for the object (can be object name itself) and it must be unique such that it can be retrieved disregarding the physical storage location.
+4.Object storage can not be mounted as a drive.
+5.Example of object storage: Dropbox,AWS s3,Facebook
+
+
+
+
+AWS s3 Storage Class:
+
+
+1.Amazon S3 standard:
+1.1 s3 standard offers high durability,availability,performance object storage for frequently accessed data
+1.2 Durability: 99.999999999%
+1.3 Designed for 99.99% availability over a year.
+1.4 support SSL for data in transit and encryption at rest
+1.5 The storage for this class is fairly high but the accessing charge is very low
+1.6 Largest object that can be uploaded in a single PUT is 5GB.
+
+
+2.Amazon s3 Infrequent Access:
+
+
+2.1 s3-IA is for data that is accessed less frequently but requires rapid access when it is needed.
+2.2 storage cost is much cheaper than s3 standard ,,almost half. But you will be charged more heavily for accessing your data. That's why the data which is needed less frequently(suppose 2-3 times a month),you can store that data.
+2.3 Availability and durability same as s3 standard
+2.4 resilient against events that impact the entire availability Zone.
+2.5 data that is deleted from s3 IA within 30 days will be charged for a full 30 days.
+2.6 Backed with amazon s3 service level agreement for availability.
+
+
+
+
+3.Amazon s3 Intelligent Tiering:
+
+
+3.1 this storage class is used to optimize cost by automatically moving data to the most cost effective storage class
+3.2 It works between two storage class
+3.3 if an object in the infrequent access tier is accessed,it is automatically moved to the frequent accessed tier( s3 standard)
+3.4 There are no retrieval fees when an intelligent tier is used and also no additional fees when the objects are moved from one access tier to another access tier.
+3.5 same low latency and high performance as s3 standard and availability and durability is also same.
+3.6 If any object less than 128KB is stored in the s3 intelligent tier,it will not be moved.
+
+
+4.Amazon One Zone IA:
+
+
+4.1 amazon one zone IA is for data that is accessed less frequently but requires rapid access when data is needed.
+4.2 data is stored in a single availability zone.
+4.3 Ideal for those who want to lower the cost option for IA data.
+4.4 It is a good choice for storing secondary backup copies of on premise data and easily recreatable data.
+4.5 durability same but availability is 99.5%
+4.6 Since data is stored in a single az,if any destruction occurs in az the data will be lost.
+
+
+5. Amazon s3 Glacier:
+
+
+5.1 s3 glacier is a secure,durable,low cost storage for data archiving.
+5.2 To keep cast low yet suitable for varying needs s3 glacier provide three retrieval options that range from few minutes to hours.
+5.3 you can upload data directly to glacier or you can use life cycle policies.(giving stipulated time to change the access tiers)
+5.4 you can retrieve 10GB of s3 glacier data per month for free with aws free tier account.
+
+
+6.Amazon s3 Glacier Deep archive:
+
+
+6.1 It is the cheapest storage in aws.
+6.2 designed to retain data for long period (e.g -10 years)
+6.3 All objects stored in s3 glacier deep archive are replicated and stored at least three dispersed AZ.
+6.4 durability and availability same as s3 standard.
+6.5 retrieval time of data is within 12 hours.
+6.6 storage cost is 75% less than for the existing s3 glacier storage class.
+6.7 Ideal alternative for magnetic tape libraries.
+
+
+
+
+Versioning:
+
+
+1. Bucket versioning is a s3 bucket sub resource used to protect data against accidental object/data deletion or overrides.
+2.versioning can also be useful for data retention and archiving.
+3.once versioning is enabled,it can be suspended but can not be disabled.
+4.when versioning is enabled it will protect existing and new objects and maintains their versions as they are updated.
+5.Updating objects means PUT,POST,COPY,DELETE actions on objects.
+6.when version is enabled and you try to delete an object a delete maker is posted on the object.
+7.if you delete the “Delete Maker”,then the object again will be available.
+8.You can use versioning using s3 lifecycle policies to delete older version or to move the object to a cheaper storage class.
+9.Versioning is applied to all objects in a bucket,and can not be applied partially.
+10.the objects in the bucket which was there before enabling versioning will have a version id “NULL”.
+11.If you have a bucket that is already versioned and then you suspend the versioning,existing objects and their version will remain intact.
+12.At the time of suspended versioning the new objects that will be uploaded will have version id null.
