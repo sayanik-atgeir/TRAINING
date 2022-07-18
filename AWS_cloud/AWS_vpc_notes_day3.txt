@@ -1,0 +1,111 @@
+﻿AWS vpc (virtual private cloud)
+
+
+A vpc is a virtual network that closely resembles a traditional networking that you operate in your own data center with the benefits of using the scalable infrastructure of AWS.
+
+
+Simply vpc is a virtual datacenter inside aws for one client.
+
+
+1.It is logically isolated from other virtual n/w in the aws cloud.
+2.max 5 VPC and be created in one region and 200 subnets for one vpc.
+3.we can allocate max 5 elastic IP
+4.once we created vpc , DHCP,NACL,security groups will be automatically created.
+5.A vpc is confined to an aws region and does not extend between regions.
+6. Once a vpc is created you can not change its CIDR block range.
+7.if you need a different CIDR size, create a new VPC.
+8.the different subnets within a vpc can not be overlapped.
+9.you can expand your vpc CIDR by adding new/extra IP address ranges.(except govcloud and aws china).
+
+
+VPC Types:
+
+
+1.Default VPC:
+1. Created in each aws region when an aws account is created.
+2. Has default CIDR,security groups,NACL and route table setting.
+3. Has an internet gateway by default.
+
+
+2. Custom VPC:
+1. Owner creates it on aws account.
+2. Decide the CIDR.
+3. Has its own default security groups.
+4. Network ACL and route table.
+5. Does not have an internet gateway by default,one needs to be created if needed.
+
+
+1. Public Subnets:
+1. If a subnets traffic is routed to an internet gateway, the subnet is known as public subnet.If you want your instance in a public subnet to communicate with the internet over ipv4, it must have a public ipv4 address or an elastic ip address.
+        B. Private Network:
+1. If a subnet doesn't have a route to the internet gateway the subnet is known as a private subnet.
+
+
+       f. when you create a vpc, you must specify an ipv4 cidr block for the vpc.The allowed block size is between /16 to /28
+       g. The first four and last ip address of subnet can not be assigned.
+
+
+Example: 10.0.0.0/24
+10.0.0.0 -> Network address
+10.0.0.1  ->Reserved by aws for vpc route
+10.0.0.2  -> Reserved by aws the ip address of dns server.
+10.0.0.3  ->Reserved for future use
+10.0.0.255 -> Broadcast address.
+
+
+Aws does not support broadcast addresses in a vpc but reserve the address.
+
+
+
+
+Implied Router and Route Table:
+
+
+1. It is the central routing function
+2. It connects the different AZs together and connects the vpc to the internet gateway.
+3. You can have upto 200 route tables per vpc.
+4. You can have upto 50 route entries per route table.
+5. Each subnet must be associated with only one route table at any given time.
+6. If you don't specify a subnet to route table,, the subnet will be associated with the default vpc route table.
+7. You can edit the main route table but you can not delete it.
+8.  However you can make a custom route table the main and then can delete the formar one.
+9. You can associate multiple subnets with one route table.
+
+
+VPC peering:
+
+
+1. A vpc peering connection is a networking connection between two vpc that enables you to route traffic between them using a private ipv4 address or ipv6 address.
+2. Instances in either vpc can communicate with each other as if they are within the same network.
+3. You can create a vpc peering connection between your vpc or with a vpc in anothe aws account.the vpc can be in different regions.
+4. Transitive peering does not happen here.
+
+
+
+
+Internet Gateway:
+1. An internet gateway is a virtual router that connects a vpc to the internet.
+2. Default vpc is already attached with an internet gateway.
+3. If you create a new vpc then you must attach an internet gateway to access the internet.
+4. Subnets route table has to be points to the internet gateway.
+5. It performs NAT between your private and public ipv4 address.
+6. It supports both ipv4 and ipv6
+
+
+NAT gateway:
+1. A network address translation gateway can be used to enable instances in a private subnet to connect to the internet or other AWS service but prevent the internet from establishing a connection with those instances.
+2. For creating and using a nat gateway ,it is chargeable.
+3. To create a NAT gateway the public subnet must be specified in which the nat gateway should reside.
+4. An elastic IP address also should be specified.
+5. No need to assign a public ip address to the private instance.
+
+
+
+
+Security group and NACL:
+
+
+1. Sg operates at instance level but NACl at subnet level.
+2. Sg support allows rule only, it permits allow as well as deny rules.
+3. Sg is stateful (means return traffic is automatically allowed) but in NACL it is stateless(means return traffic must be explicitly allowed by rules).
+4. Sg applies to an instance only, nacl applies to all instances in a subnet.
