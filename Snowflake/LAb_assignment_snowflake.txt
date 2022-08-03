@@ -1,0 +1,91 @@
+//file format sql script
+
+CREATE FILE FORMAT "MY_LAB_DB"."MY_LAB_SCHEMA".FF_txt_with_header_lab 
+TYPE = 'CSV' 
+COMPRESSION = 'AUTO' 
+FIELD_DELIMITER = '|' 
+RECORD_DELIMITER = '\n' 
+SKIP_HEADER = 1 
+FIELD_OPTIONALLY_ENCLOSED_BY = 'NONE' 
+TRIM_SPACE = TRUE 
+ERROR_ON_COLUMN_COUNT_MISMATCH = TRUE 
+ESCAPE = 'NONE' 
+ESCAPE_UNENCLOSED_FIELD = '\134' 
+DATE_FORMAT = 'AUTO' 
+TIMESTAMP_FORMAT = 'AUTO' 
+NULL_IF = ('\\N');
+
+
+//stage sql script
+
+CREATE STAGE "MY_LAB_DB"."MY_LAB_SCHEMA".stg_aws_snowflk_lab 
+URL = 's3://atg-demo-snowflake/inbound/txt/' 
+CREDENTIALS = (AWS_KEY_ID = 'AKIA42CUGK7YWCQYTSQW' AWS_SECRET_KEY = '****************************************');
+
+//Normal table sql
+
+CREATE OR REPLACE TABLE MY_LAB_DB.MY_LAB_SCHEMA.INTERNAL_STAGE_LAB(
+    LegacyPgmCode   VARCHAR(20),
+    UnitStateCode	VARCHAR(10),
+    PolicyNumber	VARCHAR(10),
+    AgencyCode	VARCHAR(10),
+    MultiPolicyApplied	VARCHAR(20),
+    NewRenewBus		VARCHAR(20),
+    PrimaryInsLastName		VARCHAR(50),
+    OrigPolicyEffDate		VARCHAR(50),
+    PolicyEffDate	VARCHAR(50),
+    PolicyExpDate		VARCHAR(50),
+    AsOfDate  VARCHAR(50),
+    UnitStatClass VARCHAR(10)
+    );
+
+//COPY DATA TO TABLE FROM AWS
+
+copy into INTERNAL_STAGE_LAB
+from @stg_aws_snowflk_lab
+files = ( 'PST_SnapshotArchive_001_20211115_000.txt')
+file_format = ( format_name=FF_txt_with_header_lab );
+
+//external table sql
+
+CREATE OR REPLACE EXTERNAL TABLE EXT_STAGE_LAB(
+    LegacyPgmCode   VARCHAR(10) AS (CAST(GET(VALUE, 'c1') AS VARCHAR(16777216))),
+    UnitStateCode	VARCHAR(10) AS (CAST(GET(VALUE, 'c2') AS VARCHAR(16777216))),
+    PolicyNumber	VARCHAR(10) AS (CAST(GET(VALUE, 'c3') AS VARCHAR(16777216))),
+    AgencyCode	     VARCHAR(10) AS (CAST(GET(VALUE, 'c4') AS VARCHAR(16777216))),
+    MultiPolicyApplied	VARCHAR(10) AS (CAST(GET(VALUE, 'c5') AS VARCHAR(16777216))),
+    NewRenewBus		    VARCHAR(10) AS (CAST(GET(VALUE, 'c6') AS VARCHAR(16777216))),
+    PrimaryInsLastName		VARCHAR(10) AS (CAST(GET(VALUE, 'c7') AS VARCHAR(16777216))),
+    OrigPolicyEffDate		VARCHAR(50) as (CAST(GET(VALUE, 'c8') AS VARCHAR(16777216))),
+    PolicyEffDate	     VARCHAR(50) as (CAST(GET(VALUE, 'c9') AS VARCHAR(16777216))),
+    PolicyExpDate		   VARCHAR(50) as (CAST(GET(VALUE, 'c10') AS VARCHAR(16777216))),
+    AsOfDate          VARCHAR(50) as (CAST(GET(VALUE, 'c11') AS VARCHAR(16777216))),
+    UnitStatClass      VARCHAR(10) AS (CAST(GET(VALUE, 'c12') AS VARCHAR(16777216)))
+    )
+    WITH LOCATION = @stg_aws_snowflk_lab/
+    REFRESH_ON_CREATE = TRUE
+    AUTO_REFRESH = TRUE 
+    PATTERN ='.*Snap.*[.]txt' 
+    FILE_FORMAT=FF_txt_with_header_lab;
+    
+    
+//copy sql to unload data
+    
+select * from EXT_STAGE_LAB;
+
+//external stage for outbound demo
+
+CREATE STAGE "MY_LAB_DB"."MY_LAB_SCHEMA".stg_outbound_lab 
+URL = 's3://atg-demo-snowflake/outbound/unload-demo/' 
+CREDENTIALS = (AWS_KEY_ID = 'AKIA42CUGK7YWCQYTSQW' AWS_SECRET_KEY = '****************************************');
+
+//file format
+
+COPY INTO @stg_outbound_lab/sayanik.csv
+FROM EXT_STAGE_LAB
+FILE_FORMAT = ( TYPE = CSV  FIELD_DELIMITER = ','  COMPRESSION = NONE
+               FIELD_OPTIONALLY_ENCLOSED_BY = '"' EMPTY_FIELD_AS_NULL = FALSE)
+SINGLE = TRUE
+MAX_FILE_SIZE=4900000000
+HEADER = TRUE
+OVERWRITE=TRUE;
